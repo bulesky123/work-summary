@@ -1,4 +1,4 @@
-##一、reduce(fn,initValue) 基本用法
+## 一、reduce(fn,initValue) 基本用法
 方法详解：接收两个参数
 ####
 1. 第一个是一个函数fn(accumulator、currentValue、currentIndex、array)
@@ -60,7 +60,7 @@ sortArror()
 
 ````
 
-##二、animation 基本用法
+## 二、animation 基本用法
 animation: name duration timing-function delay iteration-count direction 
 ####
 1. ------name--------------动画的名字
@@ -122,7 +122,7 @@ transform--style：属性指定嵌套元素是怎样在三维空间中呈现。
 
 ````
 
-##三、重放攻击：重复的会话请求就是重放攻击
+## 三、重放攻击：重复的会话请求就是重放攻击
 ####
 解决方案：
 ####
@@ -235,7 +235,7 @@ if (!Object.assign) {
 
 ````
 
-##六、浏览器判断
+## 六、浏览器判断
 
 ````
 var Browser = /** @class */ (function() {
@@ -286,7 +286,7 @@ var Browser = /** @class */ (function() {
 
 ````
 
-##七、数组的去重
+## 七、数组的去重
 ```
 // 例如：[1，2，4，4，3，3，1，5，3]
 // 输出：[1，3，4]
@@ -315,7 +315,7 @@ console.log(repeat(arr));
 
 ```
 
-##八、将重复个数排列
+## 八、将重复个数排列
 ```
 // 如果次数相同 则按照值排序 比如  2, 2, 2和 1, 1, 1  应排序为 [1, 1, 1, 2, 2, 2]
 
@@ -348,7 +348,7 @@ function sortArray(arr) {
     return newArr;
   }
   console.log(sortArray(arr)); 
-  
+
   // [ 3, 9, 4, 4, 7, 7, 1, 1, 1, 5, 5, 5, 2, 2, 2, 2 ]
 
 ```
