@@ -1,4 +1,4 @@
-## 一、reduce(fn,initValue) 基本用法
+### 一、reduce(fn,initValue) 基本用法
 方法详解：接收两个参数
 ####
 1. 第一个是一个函数fn(accumulator、currentValue、currentIndex、array)
@@ -60,7 +60,7 @@ sortArror()
 
 ````
 
-## 二、animation 基本用法
+### 二、animation 基本用法
 animation: name duration timing-function delay iteration-count direction 
 ####
 1. ------name--------------动画的名字
@@ -122,7 +122,7 @@ transform--style：属性指定嵌套元素是怎样在三维空间中呈现。
 
 ````
 
-## 三、重放攻击：重复的会话请求就是重放攻击
+### 三、重放攻击：重复的会话请求就是重放攻击
 ####
 解决方案：
 ####
@@ -190,7 +190,7 @@ transform--style：属性指定嵌套元素是怎样在三维空间中呈现。
 
 ````
 
-## 五、Object.assign的实现：
+### 五、Object.assign的实现：
 ````
 如果目标对象中的属性具有相同的键，则属性将被源中的属性覆盖。后来的源的属性将类似地覆盖早先的属性。
 
@@ -235,7 +235,7 @@ if (!Object.assign) {
 
 ````
 
-## 六、浏览器判断
+### 六、浏览器判断
 
 ````
 var Browser = /** @class */ (function() {
@@ -286,7 +286,7 @@ var Browser = /** @class */ (function() {
 
 ````
 
-## 七、数组的去重
+### 七、数组的去重
 ```
 // 例如：[1，2，4，4，3，3，1，5，3]
 // 输出：[1，3，4]
@@ -315,7 +315,7 @@ console.log(repeat(arr));
 
 ```
 
-## 八、将重复个数排列
+### 八、将重复个数排列
 ```
 // 如果次数相同 则按照值排序 比如  2, 2, 2和 1, 1, 1  应排序为 [1, 1, 1, 2, 2, 2]
 
@@ -352,6 +352,189 @@ function sortArray(arr) {
   // [ 3, 9, 4, 4, 7, 7, 1, 1, 1, 5, 5, 5, 2, 2, 2, 2 ]
 
 ```
+
+### 九、获取对象里面的值:当一个对象你获取它不存在的key时，会报错，写一个获取key不存在是返回undefined
+#### 例如： 
+```
+var data = { a: { b: { c: 'ScriptOJ' } } }
+data.a.b.c => scriptoj
+data.a.b.c.d // => 报错，代码不执行
+data.a.b.c.e.f.g // => 报错，代码不执行
+
+const safeGet = (o,path)=>{
+	try{
+		return path.split('.').reduce((o,k)=>o[k],o)
+	}catch(e){
+	return void 1;
+	}
+}
+console.log(safeGet(data, 'a.b.c')) // => scriptoj
+console.log(safeGet(data, 'a.b.c.d')) // => 返回 undefined
+console.log(safeGet(data, 'a.b.c.d.e.f.g')) // => 返回 undefined
+```
+
+### 十、深拷贝
+```
+const deepCopy =(p,c){
+	var c = c || {};
+
+	for(var i in p){
+		if(typeof p[i] === 'object'){
+			c[i] = (p[i].constructor===Array)? [] : {};
+			deepCopy(p[i],c[i])
+		}else{
+			c[i]=p[i]
+		}
+	}
+
+	return c;
+}
+
+```
+
+### 十一、手动触发一个dom事件，需要3步，document.createEvent
+
+```
+//创建事件
+
+var enent = document.createEvent('Event');
+
+
+//自定义一个事件 例如：sayByby
+
+
+event.initEvent('sayByby',true,true)
+
+
+//监听事件
+
+
+ele = document.getElementsByClassName('ele')
+
+ele.addEventListener('sayByby',function(){
+		alert('satbyby');
+	},false)
+
+
+// 触发对象可以是任何元素或其他事件目标
+
+
+elem.dispatchEvent(event);
+```
+
+### 十二、查找
+
+```
+方法一、二分法
+
+function binarySearch(arr,key){
+
+	var low = 0;
+
+	var len = arr.length-1;
+	
+	while(low<=len){
+
+		var mid = parseInt((low+len)/2);
+
+		if(key==arr[mid]){
+
+			return mid
+
+		}else if(key>arr[mid]){
+
+			low = mid + 1;
+
+		}else if(key<arr[mid]){
+
+			len = mid -1;
+
+		}else{
+
+			return -1
+		}
+	}
+}
+
+var arr=[1,2,3,4,5,6,7,8,9,10,11,23,44,86];
+
+var result=binarySearch(arr,10);
+
+alert(result); // 9 返回目标元素的索引值
+
+
+
+方法二、递归算法
+
+
+function binary_search(arr,low,high,key){
+
+  if(low>high){
+
+    return -1;
+
+  }
+  var mid=parseInt((high+low)/2);
+
+  if(arr[mid]==key){
+
+    return mid;
+
+  }else if(arr[mid]>key){
+
+    high=mid-1;
+
+    return binary_search(arr,low,high,key);
+
+  }else if(arr[mid]<key){
+
+    low=mid+1;
+
+    return binary_search(arr,low,high,key);
+
+  }
+};
+
+var arr=[1,2,3,4,5,6,7,8,9,10,11,23,44,86];
+
+var result=binary_search(arr,0,13,10);
+
+alert(result); // 9 返回目标元素的索引值
+
+
+三、冒泡排序:
+
+function bubbleSort(arr) {
+
+    var len = arr.length;
+
+    for (var i = 0; i < len - 1; i++) {
+
+        for (var j = i+1; j < len -1; j++) {
+
+            arr[i] > arr[j] ? [arr[i],arr[j]]= [arr[j],arr[i]]:null;
+        
+        }
+    }
+
+    return arr;
+}
+
+bubbleSort([1,2,4,7,2,8,0,9,11,32,17])
+
+console.log(bubbleSort([1,2,4,7,2,8,0,9,11,32,17]))
+
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
