@@ -526,10 +526,130 @@ console.log(bubbleSort([1,2,4,7,2,8,0,9,11,32,17]))
 
 ```
 
+### 十三、setTimeout(0)
+
+######
+```
+js 是单线程：
+在js中分为:主线程--->从上到下执行， 
+异步队列（工作线程）--->当主线程执行完后，才执行。
+setTimeout(0)--->在主线程执行完后，第一个执行的异步队列
+
+```
+
+
+### 十四、深拷贝
+######
+```
+方法一、
+
+function deepClone(obj){
+    var cloneObj = Array.isArray(obj) ? [] : {};
+    if(obj && typeof obj ==='object'){
+        for(var i in obj){
+            if(obj.hasOwnProperty(i)){
+                if(obj[i]&&typeof obj[i] === 'object'){
+                cloneObj[i] = deepClone(obj[i]);
+            }else{
+                cloneObj[i] = obj[i];
+                }
+            }  
+        }
+    }
+    return cloneObj;
+}
+
+let a={arr:[1,2,3,4],name:'zz',child:{'name':'zz',age:22}},
+    b=deepClone(a);
+
+//console.log(b)
+
+
+方法二、
+
+function deepCopy(obj){
+	var cloneObj = JSON.stringify(obj);
+	return JSON.parse(cloneObj);
+}
+
+let a={arr:[1,2,3,4],name:'zz',child:{'name':'zz',age:22}},
+    b=deepClone(a);
+
+//console.log(b)
+
+注意：JSON.stringify() 之坑
+
+坑一、1、如果obj里面有时间对象，则JSON.stringify后再JSON.parse的结果，时间将只是字符串的形式。而不是时间对象；
+
+example 1:
+
+var a = { name:'zz',data:[new Date(1536627600000),new Date(1540047600000)]}
+
+var b = JSON.parse(JSON.stringify(a));
+
+console.log(a,b);
+
+console.log(typeof a.data[0],typeof b.data[0]); //object  string
+
+
+坑二、如果obj里有RegExp、Error对象，则序列化的结果将只得到空对象
+
+example 2：
+
+var a = {name:'zz',reg:new RegExp('\\w+'),err:new Error()}
+
+var b = JSON.parse(JSON.stringify(a));
+
+console.log(a,b);
+
+console.log(a.reg,b.reg); // /\w+/ {}
+
+console.log(a.err,b.err);// error对象  {}
+
+坑三、如果obj里有函数，undefined，则序列化的结果会把函数或 undefined丢失
+
+example 3：
+
+var a = {name:'zz',sayName:function(){alert(123)}}
+
+var b = JSON.parse(JSON.stringify(a));
+
+console.log(a,b); //{name:'zz',sayName:function(){alert(123)}} {name:'zz'}
+
+坑四、如果obj里有NaN、Infinity和-Infinity，则序列化的结果会变成null
+
+example 4：
+
+var a = {name:'zz',num1:NaN,num2:Infinity}
+
+var b = JSON.parse(JSON.stringify(a));
+
+console.log(a,b); //{name:'zz',num1:NaN,num2:Infinity} {name:'zz',num1:null,num2:null}
+
+坑五、JSON.stringify()只能序列化对象的可枚举的自有属性，例如 如果obj中的对象是有构造函数生成的，  则使用JSON.parse(JSON.stringify(obj))深拷贝后，会丢弃对象的constructor
+
+example 4：
+
+function Person(name) {        
+    this.name = name;        
+    console.log(name)
+}     
+const test = new Person('liai');  
+
+const a = { 
+    name: 'a', 
+    date: test,
+};      
+const b = JSON.parse(JSON.stringify(a));
+
+console.log(a,b) 
+
+坑六、如果对象中存在循环引用的情况也无法正确实现深拷贝
 
 
 
 
+```
 
 
 

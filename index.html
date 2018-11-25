@@ -12,20 +12,76 @@
 	<div class='animation'></div>
 </body>
 <script type="text/javascript">
+    /*var a = 1;
+    var b = a;
+    console.log('a='+a,'b='+b);//1 1
+    a = 12;
+    console.log('a='+a,'b='+b);//12 1
+    b = 30;
+    console.log('a='+a,'b='+b);//12 30
+    //说明：基本数据类型存放在栈内存，相当于有一块独立的内存块。
 
-function bubbleSort(arr) {
-    var len = arr.length;
-    for (var i = 0; i < len - 1; i++) {
-        for (var j = i+1; j < len -1; j++) {
-            arr[i] > arr[j] ? [arr[i],arr[j]]= [arr[j],arr[i]]:null;
+    var c = [1,2,3,4,5,6,7], d = c;
+    console.log('c='+c,'d='+d); //[1,2,3,4,5,6,7] [1,2,3,4,5,6,7]
+    c[0] = 'zz';
+    console.log('c='+c,'d='+d);//['zz',2,3,4,5,6,7] ['zz',2,3,4,5,6,7]
+    d[2] = 'age';
+    console.log('c='+c,'d='+d);//['zz',2,'age',4,5,6,7] ['zz',2,'age',4,5,6,7]*/
+/*function deepClone(obj){
+    let objClone = Array.isArray(obj)?[]:{};
+    if(obj && typeof obj==="object"){
+        for(key in obj){
+            if(obj.hasOwnProperty(key)){
+                //判断ojb子元素是否为对象，如果是，递归复制
+                if(obj[key]&&typeof obj[key] ==="object"){
+                    objClone[key] = deepClone(obj[key]);
+                }else{
+                    //如果不是，简单复制
+                    objClone[key] = obj[key];
+                }
+            }
         }
     }
-    return arr;
+    return objClone;
+} */   
+/*function deepClone(obj){
+    var cloneObj = Array.isArray(obj) ? [] : {};
+    if(obj && typeof obj ==='object'){
+        for(var i in obj){
+            if(obj.hasOwnProperty(i)){
+                if(obj[i]&&typeof obj[i] === 'object'){
+                cloneObj[i] = deepClone(obj[i]);
+            }else{
+                cloneObj[i] = obj[i];
+                }
+            }  
+        }
+    }
+    return cloneObj;
+}*/
+/*function deepClone(obj){
+    var cloneObj = JSON.stringify(obj);
+    return JSON.parse(cloneObj);
 }
+let a=[{arr:[1,2,3,4],name:'zz',child:{'name':'zz',age:22}}],
+    b=deepClone(a);
+//a[0]=2;
+console.log(a,b);*/
 
-bubbleSort([1,2,4,7,2,8,0,9,11,32,17])
-console.log(bubbleSort([1,2,4,7,2,8,0,9,11,32,17]))
-//[0, 1, 2, 2, 4, 7, 8, 9, 11, 32, 17]
+function Person(name) {        
+    this.name = name;        
+    console.log(name)
+}     
+const liai = new Person('liai');  
+
+const test = { 
+    name: 'a', 
+    date: liai,
+};      
+const copyed = JSON.parse(JSON.stringify(test));
+console.log(test,copyed)
+/*test.name = 'test'
+console.error('ddd', test, copyed)*/
 
 
 </script>
